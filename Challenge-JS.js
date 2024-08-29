@@ -1,11 +1,11 @@
 //Sintaxis:
     //Arrow Function:
-    const functionName = (parameters) => { /* code */ };
+    //const functionName = (parameters) => { /* code */ };
 
     //Regular Function:
-    function functionName(parameters) {
+    //function functionName(parameters) {
         /* code */
-    }
+    //}
 
 //Contexto de "this":
     //Arrow Function: No tiene su propio "this". Hereda el "this" del contexto donde se define, lo cual es útil en situaciones como el uso de funciones dentro de métodos de objetos.
