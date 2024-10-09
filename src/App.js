@@ -1,10 +1,10 @@
 import React from 'react';
-import CounterApp from './components/CounterApp';
+import DataDisplay from './components/DataDisplay';
 
 function App() {
     return (
         <div className="App">
-            <CounterApp />
+            <DataDisplay />
         </div>
     );
 }
