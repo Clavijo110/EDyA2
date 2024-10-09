@@ -1,10 +1,10 @@
 import React from 'react';
-import DataDisplay from './components/DataDisplay';
+import { MultipleCustomHooks } from './components/MultipleCustomHooks';
 
 function App() {
     return (
         <div className="App">
-            <DataDisplay />
+            <MultipleCustomHooks/>
         </div>
     );
 }
