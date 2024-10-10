@@ -1,10 +1,10 @@
 import React from 'react';
-import { MultipleCustomHooks } from './components/MultipleCustomHooks';
+import { Father } from './components/Father';
 
 function App() {
     return (
         <div className="App">
-            <MultipleCustomHooks/>
+            <Father/>
         </div>
     );
 }
