@@ -3,29 +3,38 @@ import React, { useState } from 'react';
 export const TodoAdd = ({ handleAddTodo }) => {
     const [description, setDescription] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const onInputChange = (event) => {
+        setDescription(event.target.value);
+    };
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        
         if (description.trim().length <= 1) return;
 
-        handleAddTodo({
+        const newTodo = {
             id: new Date().getTime(),
-            description,
+            description: description.trim(),
             done: false
-        });
+        };
 
+        handleAddTodo(newTodo);
         setDescription('');
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
-                type="text" 
-                className='form-control'
-                placeholder="Nuevo TODO"
+        <form onSubmit={onSubmit}>
+            <input
+                type="text"
+                placeholder="Agregar TODO"
+                className="form-control"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={onInputChange}
             />
-            <button className='btn btn-outline-primary mt-1'>
+            <button
+                type="submit"
+                className="btn btn-outline-primary mt-1 btn-block"
+            >
                 Agregar
             </button>
         </form>
