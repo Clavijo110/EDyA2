@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import HomePage  from './pages/HomePage';  // Importa tus páginas
+import HomePage  from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
-import NavComponent from './components/NavComponent';  // Importa tu componente de navegación
-import { AuthContext } from './context/authContext';  // Importa el contexto de autenticación
+import NavComponent from './components/NavComponent';
+import { AuthContext } from './context/authContext';
 
 const App = () => {
     const { isAuthenticated, setLastVisitedPage } = useContext(AuthContext);

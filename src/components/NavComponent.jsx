@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
-import './NavComponent.css';  // Importa tu archivo CSS
+import './NavComponent.css';
 
 const NavComponent = () => {
     const { isAuthenticated, user, logout } = useContext(AuthContext);
