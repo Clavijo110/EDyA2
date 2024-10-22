@@ -1,22 +1,42 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {NavComponent} from './components/NavComponent';
-import Home from './pages/HomePage';
-import About from './pages/AboutPage';
-import Contact from './pages/ContactPage';
+import React, { useContext, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import HomePage  from './pages/HomePage';  // Importa tus páginas
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
+import NavComponent from './components/NavComponent';  // Importa tu componente de navegación
+import { AuthContext } from './context/authContext';  // Importa el contexto de autenticación
 
 const App = () => {
+    const { isAuthenticated, setLastVisitedPage } = useContext(AuthContext);
+
+    useEffect(() => {
+        const lastPage = localStorage.getItem('lastVisitedPage');
+        if (lastPage) {
+            setLastVisitedPage(lastPage);
+        }
+    }, [setLastVisitedPage]);
+
     return (
-        <Router>
-            <NavComponent />
-            <div className="content">
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                </Routes>
-            </div>
-        </Router>
+        <>
+            <NavComponent />  {/* Barra de navegación */}
+            <Routes>
+                {/* Rutas públicas */}
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+
+                {/* Rutas privadas */}
+                {isAuthenticated ? (
+                    <>
+                        <Route path="/profile" element={<ProfilePage />} />
+                    </>
+                ) : (
+                    <Route path="/profile" element={<Navigate to="/login" />} />
+                )}
+
+                {/* Redirigir rutas no encontradas */}
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+        </>
     );
 };
 
