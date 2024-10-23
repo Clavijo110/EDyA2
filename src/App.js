@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import HomePage  from './pages/HomePage';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import NavComponent from './components/NavComponent';
@@ -8,17 +8,18 @@ import { AuthContext } from './context/authContext';
 
 const App = () => {
     const { isAuthenticated, setLastVisitedPage } = useContext(AuthContext);
+    const location = useLocation();
 
+    // Guardar la última página visitada cada vez que la ubicación cambia
     useEffect(() => {
-        const lastPage = localStorage.getItem('lastVisitedPage');
-        if (lastPage) {
-            setLastVisitedPage(lastPage);
+        if (location.pathname !== '/login') {
+            setLastVisitedPage(location.pathname);
         }
-    }, [setLastVisitedPage]);
+    }, [location, setLastVisitedPage]);
 
     return (
         <>
-            <NavComponent />  {/* Barra de navegación */}
+            <NavComponent />
             <Routes>
                 {/* Rutas públicas */}
                 <Route path="/" element={<HomePage />} />
@@ -26,9 +27,7 @@ const App = () => {
 
                 {/* Rutas privadas */}
                 {isAuthenticated ? (
-                    <>
-                        <Route path="/profile" element={<ProfilePage />} />
-                    </>
+                    <Route path="/profile" element={<ProfilePage />} />
                 ) : (
                     <Route path="/profile" element={<Navigate to="/login" />} />
                 )}
