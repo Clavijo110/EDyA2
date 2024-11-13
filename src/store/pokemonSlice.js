@@ -1,42 +1,48 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+// Acción para obtener datos de Pokémon según el contador
 export const fetchPokemon = createAsyncThunk(
     'pokemon/fetchPokemon',
-    async (id) => {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        const data = await response.json();
-        return data;
+    async (counter) => {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${counter}`);
+        return response.json();
     }
 );
 
 const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState: {
+        counter: 1,
         data: null,
         isLoading: false,
-        hasError: false,
-        counter: 1
+        hasError: null
     },
     reducers: {
-        incrementCounter: (state) => {
+        increment: (state) => {
             state.counter += 1;
+        },
+        decrement: (state) => {
+            if (state.counter > 1) {
+                state.counter -= 1;
+            }
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPokemon.pending, (state) => {
                 state.isLoading = true;
+                state.hasError = null;
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.data = action.payload;
             })
-            .addCase(fetchPokemon.rejected, (state) => {
+            .addCase(fetchPokemon.rejected, (state, action) => {
                 state.isLoading = false;
-                state.hasError = true;
+                state.hasError = action.error.message;
             });
     }
 });
 
-export const { incrementCounter } = pokemonSlice.actions;
+export const { increment, decrement } = pokemonSlice.actions;
 export default pokemonSlice.reducer;
