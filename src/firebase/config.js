@@ -1,18 +1,18 @@
-import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import {getAuth} from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAYyh3ztkayry4FdBayaI8iUFOJKwSyTfg",
-  authDomain: "challenge-react-14.firebaseapp.com",
-  projectId: "challenge-react-14",
-  storageBucket: "challenge-react-14.firebasestorage.app",
-  messagingSenderId: "186074306820",
-  appId: "1:186074306820:web:76f3ab3472a6c0ae811851",
-  measurementId: "G-PTNWWLBTKN"
+  apiKey: "AIzaSyAcbIVqi5aqAHjQqlQz4WG3-wGWPVq_iJA",
+  authDomain: "playgroound-bc5b5.firebaseapp.com",
+  projectId: "playgroound-bc5b5",
+  storageBucket: "playgroound-bc5b5.appspot.com",
+  messagingSenderId: "1048744607257",
+  appId: "1:1048744607257:web:a23580b3aaacf7b1f9b488"
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firebaseStorage = getStorage(app);
 
-const auth = getAuth();
-
-export { auth };
+export {app, auth,firebaseStorage}
